@@ -3,3 +3,5 @@ node_modules
 bin
 obj
 .vscode
+appsettings.json
+appsettings.Development.json
