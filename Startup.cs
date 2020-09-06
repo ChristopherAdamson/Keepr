@@ -45,21 +45,20 @@ namespace Keepr
       {
         options.AddPolicy("CorsDevPolicy", builder =>
               {
-            builder
-                      .WithOrigins(new string[]{
-                            "http://localhost:8080"
-                  })
-                      .AllowAnyMethod()
-                      .AllowAnyHeader()
-                      .AllowCredentials();
-          });
+                builder
+                          .WithOrigins(new string[]{
+                            "http://localhost:8080","http://localhost:8081"
+                      })
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials();
+              });
       });
 
       services.AddControllers();
 
       //CONNECT TO DB
       services.AddScoped<IDbConnection>(x => CreateDbConnection());
-
       //NOTE REGISTER SERVICES AND REPOSITORIES
       services.AddTransient<KeepsService>();
       services.AddTransient<KeepsRepository>();
@@ -84,7 +83,7 @@ namespace Keepr
         app.UseHsts();
       }
 
-      // app.UseHttpsRedirection();
+      app.UseHttpsRedirection();
       app.UseRouting();
 
       app.UseAuthentication();
