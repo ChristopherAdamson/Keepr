@@ -39,8 +39,12 @@ namespace Keepr.Controllers
     {
       try
       {
-        var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        newKeep.UserId = userId;
+        Claim userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userId == null)
+        {
+          throw new Exception("you must be logged in to make a keep.");
+        }
+        newKeep.UserId = userId.Value;
         return Ok(_ks.Create(newKeep));
       }
       catch (Exception e)

@@ -10,7 +10,7 @@ export default {
     },
     async createKeep({ commit, dispatch }, newKeep) {
       try {
-        debugger
+
         let res = await api.post("keeps", newKeep)
         console.log(res.data);
         // TODO should probably create a method to get the ones ive made. 

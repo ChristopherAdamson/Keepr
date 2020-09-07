@@ -66,7 +66,7 @@ namespace Keepr
 
     private IDbConnection CreateDbConnection()
     {
-      string connectionString = Configuration.GetSection("DB").GetValue<string>("gearhost");
+      string connectionString = Configuration["db:gearhost"];
       return new MySqlConnection(connectionString);
     }
 

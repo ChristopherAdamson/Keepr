@@ -53,7 +53,7 @@ export default {
         Img: this.img,
         IsPrivate: !this.isPrivate,
       };
-      debugger;
+  
       this.$store.dispatch("createKeep", newKeep);
     },
   },
