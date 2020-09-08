@@ -17,9 +17,11 @@ namespace Keepr.Controllers
   public class VaultsController : ControllerBase
   {
     private readonly VaultsService _ks;
-    public VaultsController(VaultsService ks)
+    private readonly VaultKeepService _vks;
+    public VaultsController(VaultsService ks, VaultKeepService vks)
     {
       _ks = ks;
+      _vks = vks;
     }
     [HttpGet]
     public ActionResult<IEnumerable<Vault>> Get()
@@ -44,6 +46,24 @@ namespace Keepr.Controllers
       try
       {
         return Ok(_ks.GetByVaultId(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      };
+    }
+
+    [HttpGet("{id}/keeps")]
+    public ActionResult<IEnumerable<VaultKeepViewModel>> getKeepByVaultId(int id)
+    {
+      try
+      {
+        Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (user == null)
+        {
+          throw new Exception("Must be logged in update a vault");
+        }
+        return Ok(_vks.getKeepByVaultId(id, user.Value));
       }
       catch (Exception e)
       {

@@ -33,5 +33,11 @@ namespace Keepr.Services
     {
       return _repo.Get(vaultKeep);
     }
+
+    public IEnumerable<VaultKeepViewModel> getKeepByVaultId(int id, string userId)
+    {
+      IEnumerable<VaultKeepViewModel> check = _repo.GetKeepByVaultId(id, userId);
+      return check;
+    }
   }
 }
