@@ -47,5 +47,16 @@ namespace Keepr.Services
       }
       return updatedKeep;
     }
+
+    public String Delete(string userId, int id)
+    {
+      GetByKeepId(id);
+      bool delorted = _repo.Delete(userId, id);
+      if (!delorted)
+      {
+        throw new Exception("Not your keep to delete");
+      }
+      return "Deleted!";
+    }
   }
 }

@@ -11,10 +11,9 @@ export default {
     },
     async getVaults({ commit, dispatch }) {
       try {
-
         let res = await api.get("vaults")
         console.log(res.data);
-        dispatch("getVaults")
+        commit("setVaults", res.data)
       } catch (error) { console.error(error); }
     },
 

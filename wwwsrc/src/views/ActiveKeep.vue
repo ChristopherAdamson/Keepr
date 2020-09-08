@@ -34,6 +34,9 @@ export default {
     addToVault() {
       // TODO
     },
+    deleteKeep() {
+      // TODO check if it is there keep before showing them the button
+    },
   },
   components: {},
 };

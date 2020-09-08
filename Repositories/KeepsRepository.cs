@@ -55,5 +55,12 @@ namespace Keepr.Repositories
       int rowsAffected = _db.Execute(sql, updatedKeep);
       return rowsAffected == 1;
     }
+
+    public bool Delete(string userId, int id)
+    {
+      string sql = "DELETE FROM keeps WHERE id = @Id AND userId = @UserId LIMIT 1;";
+      int rowsAffected = _db.Execute(sql, new { userId, id });
+      return rowsAffected == 1;
+    }
   }
 }

@@ -11,21 +11,27 @@ using Microsoft.Extensions.Logging;
 
 namespace Keepr.Controllers
 {
+  [Authorize]
   [ApiController]
   [Route("api/[controller]")]
-  public class KeepsController : ControllerBase
+  public class VaultsController : ControllerBase
   {
-    private readonly KeepsService _ks;
-    public KeepsController(KeepsService ks)
+    private readonly VaultsService _ks;
+    public VaultsController(VaultsService ks)
     {
       _ks = ks;
     }
     [HttpGet]
-    public ActionResult<IEnumerable<Keep>> Get()
+    public ActionResult<IEnumerable<Vault>> Get()
     {
       try
       {
-        return Ok(_ks.Get());
+        Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (user == null)
+        {
+          throw new Exception("Must be logged in update a vault");
+        }
+        return Ok(_ks.Get(user.Value));
       }
       catch (Exception e)
       {
@@ -33,11 +39,11 @@ namespace Keepr.Controllers
       };
     }
     [HttpGet("{id}")]
-    public ActionResult<Keep> GetByKeepId(int id)
+    public ActionResult<Vault> GetByVaultId(int id)
     {
       try
       {
-        return Ok(_ks.GetByKeepId(id));
+        return Ok(_ks.GetByVaultId(id));
       }
       catch (Exception e)
       {
@@ -45,20 +51,20 @@ namespace Keepr.Controllers
       };
     }
 
-    [Authorize]
+
     [HttpPut("{id}")]
-    public ActionResult<Keep> Update(int id, [FromBody] Keep updatedKeep)
+    public ActionResult<Vault> Update(int id, [FromBody] Vault updatedVault)
     {
       try
       {
         Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
         if (user == null)
         {
-          throw new Exception("Must be logged in update a keep");
+          throw new Exception("Must be logged in update a vault");
         }
-        updatedKeep.UserId = user.Value;
-        updatedKeep.Id = id;
-        return Ok(_ks.Update(id, updatedKeep));
+        updatedVault.UserId = user.Value;
+        updatedVault.Id = id;
+        return Ok(_ks.Update(id, updatedVault));
       }
       catch (Exception e)
       {
@@ -66,27 +72,27 @@ namespace Keepr.Controllers
       };
     }
 
-    [Authorize]
+
     [HttpPost]
 
-    public ActionResult<Keep> Post([FromBody] Keep newKeep)
+    public ActionResult<Vault> Post([FromBody] Vault newVault)
     {
       try
       {
         Claim userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
         if (userId == null)
         {
-          throw new Exception("you must be logged in to make a keep.");
+          throw new Exception("you must be logged in to make a vault.");
         }
-        newKeep.UserId = userId.Value;
-        return Ok(_ks.Create(newKeep));
+        newVault.UserId = userId.Value;
+        return Ok(_ks.Create(newVault));
       }
       catch (Exception e)
       {
         return BadRequest(e.Message);
       }
     }
-    [Authorize]
+
     [HttpDelete("{id}")]
     public ActionResult<string> Delete(int id)
     {
@@ -95,7 +101,7 @@ namespace Keepr.Controllers
         Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
         if (user == null)
         {
-          throw new Exception("Must be logged in update a keep");
+          throw new Exception("Must be logged in update a vault");
         }
 
         return Ok(_ks.Delete(user.Value, id));
