@@ -4,7 +4,7 @@ import { api } from "./AxiosService"
 import router from "../router";
 import keepsModule from "./KeepsModule.js"
 import vaultsModules from "./VaultsModule.js"
-
+import relationshipModule from "./relationshipModule.js"
 Vue.use(Vuex);
 
 
@@ -35,6 +35,7 @@ export default new Vuex.Store({
   },
   modules: {
     keepsModule,
-    vaultsModules
+    vaultsModules,
+    relationshipModule
   }
 });

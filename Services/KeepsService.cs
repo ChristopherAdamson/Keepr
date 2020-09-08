@@ -29,6 +29,11 @@ namespace Keepr.Services
       return keep;
     }
 
+    internal void increaseKeepCount(int keepId)
+    {
+      _repo.increaseKeepCount(keepId);
+    }
+
     public Keep Update(int id, Keep updatedKeep)
     {
       Keep original = GetByKeepId(id);

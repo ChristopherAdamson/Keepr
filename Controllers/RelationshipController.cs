@@ -4,35 +4,36 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Keepr.Models;
+using Keepr.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace gregslist_api.Controllers
+namespace Keepr.Controllers
 {
 
-  [Authorize]
+
   [ApiController]
   [Route("api/[controller]")]
   public class RelationshipsController : ControllerBase
   {
-    private readonly RelationshipsService _service;
+    private readonly RelationshipService _service;
 
-    public RelationshipsController(RelationshipsService service)
+    public RelationshipsController(RelationshipService service)
     {
       _service = service;
     }
 
 
     [HttpPost]
-    public ActionResult<string> Create([FromBody] string relationship)
+    public ActionResult<string> Create([FromBody] VaultKeep relationship)
     {
       try
       {
         Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
         if (user == null)
         {
-          throw new Exception("You must be logged in to favorite a car, yo.");
+          throw new Exception("You must be logged in to add a keep to a vault.");
         }
         relationship.UserId = user.Value;
         return Ok(_service.Create(relationship));

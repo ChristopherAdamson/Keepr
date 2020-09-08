@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Keepr.Models;
+using Keepr.Repositories;
 using Keepr.Services;
 
-namespace gregslist_api.Services
+namespace Keepr.Services
 {
   public class RelationshipService
   {
@@ -17,17 +18,15 @@ namespace gregslist_api.Services
       _keepsService = keepsService;
     }
 
-    internal DTOFavoriteCar Create(DTOFavoriteCar newFavoriteCar)
+    public VaultKeep Create(VaultKeep vaultKeep)
     {
-      // Car car = _carService.GetById(newFavoriteCar.CarId);
-      // newFavoriteCar = _repo.Create(newFavoriteCar);
-      // ViewModelCar favoriteCar = new ViewModelCar();
-      return _repo.Create(newFavoriteCar);
+      _keepsService.increaseKeepCount(vaultKeep.keepId);
+      return _repo.Create(vaultKeep);
     }
 
-    internal IEnumerable<VaultKeepViewModel> Get(string userId)
+    internal IEnumerable<VaultKeepViewModel> Get(VaultKeep vaultKeep)
     {
-      return _repo.Get(userId);
+      return _repo.Get(vaultKeep);
     }
   }
 }

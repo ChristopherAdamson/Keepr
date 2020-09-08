@@ -32,6 +32,16 @@ namespace Keepr.Repositories
       return KeepData;
     }
 
+    internal void increaseKeepCount(string keepId)
+    {
+      string sql1 = @"UPDATE keeps
+      SET
+      Keeps = Keeps + 1
+      WHERE id = @keepId;";
+      _db.Execute(sql1, new { keepId });
+
+    }
+
     public Keep GetByKeepId(int id)
     {
       string sql1 = @"UPDATE keeps
