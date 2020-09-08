@@ -38,6 +38,13 @@ namespace Keepr.Services
       original.Shares = updatedKeep.Shares > 0 ? updatedKeep.Shares : original.Shares;
       original.Keeps = updatedKeep.Keeps > 0 ? updatedKeep.Keeps : original.Keeps;
       //   need to do isprivate when i learn the data default
+      bool updated = _repo.Update(updatedKeep);
+      if (!updated)
+      {
+        throw new Exception("You dont own this keep");
+
+      }
+      return updatedKeep;
     }
   }
 }

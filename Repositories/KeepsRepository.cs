@@ -37,5 +37,18 @@ namespace Keepr.Repositories
       string sql = @"SELECT * FROM keeps WHERE isPrivate = 0 AND id = @id;";
       return _db.QueryFirstOrDefault<Keep>(sql, new { id });
     }
+
+    internal bool Update(Keep updatedKeep)
+    {
+      string sql = @"UPDATE keeps
+            SET 
+            name = @name,
+            description = @description,
+            Img = @Img,
+            
+            WHERE id = @id AND userId = @userId LIMIT 1;";
+      int rowsAffected = _db.Execute(sql, updatedKeep);
+      return rowsAffected == 1;
+    }
   }
 }
