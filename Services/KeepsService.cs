@@ -25,7 +25,8 @@ namespace Keepr.Services
 
     public Keep GetByKeepId(int id)
     {
-      return _repo.GetByKeepId(id);
+      Keep keep = _repo.GetByKeepId(id);
+      return keep;
     }
 
     public Keep Update(int id, Keep updatedKeep)

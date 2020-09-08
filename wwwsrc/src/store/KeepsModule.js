@@ -10,12 +10,11 @@ export default {
     },
     async getKeepById({ commit, dispatch }, keepId) {
       try {
-        let res = await api.put("/keeps" + keepId)
+        let res = await api.get("/keeps/" + keepId)
         console.log(res.data);
         commit("setActiveKeep", res.data)
-      } catch (error) { console.error(error); }
+      } catch (error) { }
     },
-
 
     async createKeep({ commit, dispatch }, newKeep) {
       try {

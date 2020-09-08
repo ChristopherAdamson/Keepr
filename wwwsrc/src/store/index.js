@@ -3,18 +3,10 @@ import Vuex from "vuex";
 import { api } from "./AxiosService"
 import router from "../router";
 import keepsModule from "./KeepsModule.js"
+import vaultsModules from "./VaultsModule.js"
 
 Vue.use(Vuex);
 
-// let baseUrl = window.location.host.includes("localhost")
-//   ? "https://localhost:5001/"
-//   : "/";
-
-// let api = Axios.create({
-//   baseURL: baseUrl + "api/",
-//   timeout: 3000,
-//   withCredentials: true
-// });
 
 export default new Vuex.Store({
   state: {
@@ -39,5 +31,6 @@ export default new Vuex.Store({
   },
   modules: {
     keepsModule,
+    vaultsModules
   }
 });

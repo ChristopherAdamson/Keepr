@@ -3,7 +3,9 @@
     <h5>{{keepData.name}}</h5>
     <p>{{keepData.description}}</p>
     <img class="img-fluid" :src="keepData.img" />
-    <div class="text-center">Views: 0 | Shares: 0 | Keeps: 0</div>
+    <div
+      class="text-center"
+    >Views: {{keepData.views}} | Shares: {{keepData.shares}} | Keeps: {{keepData.keeps}}</div>
     <button @click="activeKeep" class="btn btn-sm btn-outline-success">View Keep</button>
   </div>
 </template>
@@ -19,7 +21,7 @@ export default {
   computed: {},
   methods: {
     activeKeep() {
-      this.$router.push({ name: "keep", params: { id: this.keepData.Id } });
+      this.$router.push({ name: "keep", params: { id: this.keepData.id } });
     },
   },
   components: {},

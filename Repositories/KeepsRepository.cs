@@ -34,6 +34,11 @@ namespace Keepr.Repositories
 
     public Keep GetByKeepId(int id)
     {
+      string sql1 = @"UPDATE keeps
+      SET
+        Views = Views + 1
+        WHERE id = @id;";
+      _db.Execute(sql1, new { id });
       string sql = @"SELECT * FROM keeps WHERE isPrivate = 0 AND id = @id;";
       return _db.QueryFirstOrDefault<Keep>(sql, new { id });
     }
