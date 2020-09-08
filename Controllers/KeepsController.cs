@@ -32,6 +32,39 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       };
     }
+    [HttpGet("{id}")]
+    public ActionResult<Keep> GetByKeepId(int id)
+    {
+      try
+      {
+        return Ok(_ks.GetByKeepId(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      };
+    }
+
+    [Authorize]
+    [HttpPut("{id}")]
+    public ActionResult<Keep> Update(int id, [FromBody] Keep updatedKeep)
+    {
+      try
+      {
+        Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (user == null)
+        {
+          throw new Exception("Must be logged in update a keep");
+        }
+        updatedKeep.UserId = user.Value;
+        updatedKeep.Id = id;
+        return Ok(_ks.Update(id, updatedKeep));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      };
+    }
 
     [HttpPost]
 

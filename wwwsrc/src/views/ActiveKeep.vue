@@ -9,6 +9,9 @@ export default {
   data() {
     return {};
   },
+  mounted() {
+    this.$store.dispatch("getKeepById", this.$route.params.id);
+  },
   computed: {},
   methods: {},
   components: {},

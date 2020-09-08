@@ -1,7 +1,9 @@
 <template>
-  <div class="home">
+  <div class="home container-fluid">
     <h1>Welcome Home</h1>
-    <keepscomponent v-for="keep in publicKeeps" :keepData="keep" :key="keep.id" />
+    <div class="row">
+      <keepscomponent v-for="keep in publicKeeps" :keepData="keep" :key="keep.id" />
+    </div>
   </div>
 </template>
 

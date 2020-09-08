@@ -18,11 +18,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    publicKeeps: []
+    publicKeeps: [],
+    activeKeep: {}
   },
   mutations: {
     setPublicKeeps(state, data) {
       state.publicKeeps = data
+    },
+    setActiveKeep(state, data) {
+      state.activeKeep = data
     }
   },
   actions: {

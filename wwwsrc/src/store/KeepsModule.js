@@ -8,6 +8,15 @@ export default {
         commit("setPublicKeeps", res.data)
       } catch (error) { console.error(error); }
     },
+    async getKeepById({ commit, dispatch }, keepId) {
+      try {
+        let res = await api.put("/keeps" + keepId)
+        console.log(res.data);
+        commit("setActiveKeep", res.data)
+      } catch (error) { console.error(error); }
+    },
+
+
     async createKeep({ commit, dispatch }, newKeep) {
       try {
 

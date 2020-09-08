@@ -31,5 +31,11 @@ namespace Keepr.Repositories
       KeepData.Id = _db.ExecuteScalar<int>(sql, KeepData);
       return KeepData;
     }
+
+    public Keep GetByKeepId(int id)
+    {
+      string sql = @"SELECT * FROM keeps WHERE isPrivate = 0 AND id = @id;";
+      return _db.QueryFirstOrDefault<Keep>(sql, new { id });
+    }
   }
 }
