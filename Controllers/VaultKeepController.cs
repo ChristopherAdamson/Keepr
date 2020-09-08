@@ -15,11 +15,11 @@ namespace Keepr.Controllers
 
   [ApiController]
   [Route("api/[controller]")]
-  public class RelationshipsController : ControllerBase
+  public class VaultKeepsController : ControllerBase
   {
-    private readonly RelationshipService _service;
+    private readonly VaultKeepService _service;
 
-    public RelationshipsController(RelationshipService service)
+    public VaultKeepsController(VaultKeepService service)
     {
       _service = service;
     }

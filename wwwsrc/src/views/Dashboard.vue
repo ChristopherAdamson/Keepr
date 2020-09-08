@@ -6,18 +6,53 @@
       </div>
       <!-- <div class="col-12">public {{ publicKeeps }} user {{ userKeeps }}</div> -->
       <div class="row justify-content-around">
-        <div class="col-6"></div>
-        <div class="col-6"></div>
-        <button
-          data-toggle="modal"
-          data-target="#one"
-          class="btn btn-sm btn-outline-success"
-        >Create a Keep</button>
-        <button
-          data-toggle="modal"
-          data-target="#two"
-          class="btn btn-sm btn-outline-success"
-        >Create a Vault</button>
+        <div class="col-4">
+          <button
+            data-toggle="modal"
+            data-target="#one"
+            class="btn btn-sm btn-outline-success"
+          >Create a Keep</button>
+        </div>
+        <div class="col-4">
+          <button
+            data-toggle="modal"
+            data-target="#two"
+            class="btn btn-sm btn-outline-success"
+          >Create a Vault</button>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5 justify-content-center">
+      <div class="col-8 box">
+        <div class="row">
+          <div class="col-6">
+            <button
+              :disabled="keep == true"
+              @click="toggle"
+              class="btn btn-block btn-secondary"
+            >Your Keeps</button>
+          </div>
+          <div class="col-6">
+            <button
+              :disabled="vault == true"
+              @click="toggle"
+              class="btn btn-block btn-secondary"
+            >Your Vaults</button>
+          </div>
+        </div>
+        <div v-if="vault" class="col-12">
+          <div class="row">
+            <div v-for="vault in vaults" :key="vault.id" class="col-3 m-2 border">
+              <h5>{{vault.name}}</h5>
+              <p>{{vault.description}}</p>
+              <button
+                @click="goToVault(vault.id)"
+                class="btn btn-primary btn-block"
+              >View keeps in vault</button>
+            </div>
+          </div>
+        </div>
+        <div v-if="keep" class="col-12"></div>
       </div>
     </div>
     <QuickModal id="one" :key="1">
@@ -67,6 +102,8 @@ export default {
       description: "",
       img: "",
       isPrivate: false,
+      vault: true,
+      keep: false,
     };
   },
   props: [""],
@@ -80,6 +117,10 @@ export default {
     },
   },
   methods: {
+    toggle() {
+      this.vault = !this.vault;
+      this.keep = !this.keep;
+    },
     createKeep() {
       let newKeep = {
         Name: this.name,
@@ -99,13 +140,22 @@ export default {
         Name: this.name,
         Description: this.description,
       };
-
       this.$store.dispatch("createVault", newVault);
       (this.name = ""), (this.description = "");
+    },
+    goToVault(vaultId) {
+      this.$router.push({ name: "vault", params: { id: vaultId } });
     },
   },
   components: { QuickModal },
 };
 </script>
 
-<style></style>
+<style>
+.box {
+  height: 30rem;
+  width: 15rem;
+  background-color: rgba(0, 0, 0, 0.075);
+  overflow: auto;
+}
+</style>

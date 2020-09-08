@@ -32,7 +32,7 @@ namespace Keepr.Repositories
       return KeepData;
     }
 
-    internal void increaseKeepCount(string keepId)
+    internal void increaseKeepCount(int keepId)
     {
       string sql1 = @"UPDATE keeps
       SET

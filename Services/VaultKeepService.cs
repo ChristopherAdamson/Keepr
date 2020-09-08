@@ -7,12 +7,12 @@ using Keepr.Services;
 
 namespace Keepr.Services
 {
-  public class RelationshipService
+  public class VaultKeepService
   {
-    private readonly RelationshipRepository _repo;
+    private readonly VaultKeepRepository _repo;
     private readonly KeepsService _keepsService;
 
-    public RelationshipService(RelationshipRepository repo, KeepsService keepsService)
+    public VaultKeepService(VaultKeepRepository repo, KeepsService keepsService)
     {
       _repo = repo;
       _keepsService = keepsService;
@@ -20,8 +20,13 @@ namespace Keepr.Services
 
     public VaultKeep Create(VaultKeep vaultKeep)
     {
-      _keepsService.increaseKeepCount(vaultKeep.keepId);
-      return _repo.Create(vaultKeep);
+      VaultKeep check = _repo.Check(vaultKeep);
+      if (check == null)
+      {
+        _keepsService.increaseKeepCount(vaultKeep.keepId);
+        return _repo.Create(vaultKeep);
+      }
+      return vaultKeep;
     }
 
     internal IEnumerable<VaultKeepViewModel> Get(VaultKeep vaultKeep)

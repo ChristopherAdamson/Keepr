@@ -7,15 +7,19 @@ using Keepr.Models;
 
 namespace Keepr.Repositories
 {
-  public class RelationshipRepository
+  public class VaultKeepRepository
   {
     private readonly IDbConnection _db;
 
-    public RelationshipRepository(IDbConnection db)
+    public VaultKeepRepository(IDbConnection db)
     {
       _db = db;
     }
-
+    public VaultKeep Check(VaultKeep vaultkeep)
+    {
+      string sql = @"SELECT * FROM vaultkeeps WHERE vaultId = @vaultId AND keepId = @keepId;";
+      return _db.QueryFirstOrDefault(sql, vaultkeep);
+    }
     internal VaultKeep Create(VaultKeep VaultKeep)
     {
       string sql = @"INSERT INTO vaultkeeps
