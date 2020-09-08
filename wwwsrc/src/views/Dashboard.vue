@@ -33,7 +33,7 @@
           />
           <input type="text" v-model="img" class="form-control" placeholder="Add an Image Url?" />
           <input type="checkbox" v-model="isPrivate" class="form-control w-25" placeholder />
-          <button @click="submitKeep" class="btn btn-sm btn-primary">Submit</button>
+          <button @click="createKeep" class="btn btn-sm btn-primary">Submit</button>
           <button data-dismiss="modal" class="btn btn-sm btn-danger">Cancle</button>
         </div>
       </form>
@@ -49,7 +49,7 @@
             class="form-control"
             placeholder="input a description."
           />
-          <button @click="submitKeep" class="btn btn-sm btn-primary">Submit</button>
+          <button @click="createVault" class="btn btn-sm btn-primary">Submit</button>
           <button data-dismiss="modal" class="btn btn-sm btn-danger">Cancle</button>
         </div>
       </form>
@@ -70,11 +70,17 @@ export default {
     };
   },
   props: [""],
-  mounted() {},
-  computed: {},
+  mounted() {
+    this.$store.dispatch("getVaults");
+    // this.$store.dispatch("getMyKeeps")
+  },
+  computed: {
+    vaults() {
+      return this.$store.state.vaults;
+    },
+  },
   methods: {
-    submitKeep() {
-      this.createKeep = false;
+    createKeep() {
       let newKeep = {
         Name: this.name,
         Description: this.description,
@@ -87,6 +93,15 @@ export default {
         (this.description = ""),
         (this.img = ""),
         (this.isPrivate = false);
+    },
+    createVault() {
+      let newVault = {
+        Name: this.name,
+        Description: this.description,
+      };
+
+      this.$store.dispatch("createVault", newVault);
+      (this.name = ""), (this.description = "");
     },
   },
   components: { QuickModal },
