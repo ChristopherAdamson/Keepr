@@ -53,6 +53,11 @@ namespace Keepr.Services
       return updatedKeep;
     }
 
+    public IEnumerable<Keep> GetByUser(string userId)
+    {
+      return _repo.GetByUser(userId);
+    }
+
     internal void decreaseKeepCount(int keepId)
     {
       _repo.decreaseKeepCount(keepId);

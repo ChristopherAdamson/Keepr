@@ -24,7 +24,17 @@ export default {
         // TODO should probably create a method to get the ones ive made. 
         // dispatch("getMyKeeps")
       } catch (error) { console.error(error); }
+    },
+    async getMyKeeps({ commit, dispatch }) {
+      try {
+        let res = await api.get("keeps/user")
+        console.log(res.data);
+        commit("setUserKeeps", res.data)
+      } catch (error) { console.error(error); }
+    },
 
-    }
+    // TODO EDIT AND DELETE KEEPS
+
+
   }
 }

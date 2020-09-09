@@ -52,7 +52,16 @@
             </div>
           </div>
         </div>
-        <div v-if="keep" class="col-12"></div>
+        <div v-if="keep" class="col-12">
+          <div class="row justify-content-between m-3">
+            <keepscomponent
+              v-for="keep in keeps"
+              :vault="vault.id"
+              :keepData="keep"
+              :key="keep.id"
+            />
+          </div>
+        </div>
       </div>
     </div>
     <QuickModal id="one" :key="1">
@@ -94,6 +103,7 @@
 
 
 <script>
+import keepscomponent from "../components/Keeps";
 import QuickModal from "../components/QuickModal";
 export default {
   data() {
@@ -109,11 +119,14 @@ export default {
   props: [""],
   mounted() {
     this.$store.dispatch("getVaults");
-    // this.$store.dispatch("getMyKeeps")
+    this.$store.dispatch("getMyKeeps");
   },
   computed: {
     vaults() {
       return this.$store.state.vaults;
+    },
+    keeps() {
+      return this.$store.state.userKeeps;
     },
   },
   methods: {
@@ -150,13 +163,13 @@ export default {
       this.$router.push({ name: "vault", params: { id: vaultId } });
     },
   },
-  components: { QuickModal },
+  components: { QuickModal, keepscomponent },
 };
 </script>
 
 <style>
 .box {
-  height: 30rem;
+  height: 35rem;
   width: 15rem;
   background-color: rgba(0, 0, 0, 0.075);
   overflow: auto;

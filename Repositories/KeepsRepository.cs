@@ -66,7 +66,13 @@ namespace Keepr.Repositories
       return rowsAffected == 1;
     }
 
-    internal void decreaseKeepCount(int keepId)
+    public IEnumerable<Keep> GetByUser(string userId)
+    {
+      string sql = "SELECT * FROM Keeps WHERE userId = @userId;";
+      return _db.Query<Keep>(sql, new { userId });
+    }
+
+    public void decreaseKeepCount(int keepId)
     {
       string sql1 = @"UPDATE keeps
       SET
