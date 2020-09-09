@@ -55,5 +55,10 @@ namespace Keepr.Repositories
           WHERE (vaultId = @vaultId AND vk.userId = @userId);";
       return _db.Query<VaultKeepViewModel>(sql, new { vaultId, userId });
     }
+
+    internal object Delete(VaultKeep vaultKeep)
+    {
+      throw new NotImplementedException();
+    }
   }
 }

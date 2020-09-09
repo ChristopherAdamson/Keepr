@@ -30,6 +30,7 @@ export default new Vuex.Store({
       state.activeVault = data;
     },
     setVaultKeeps(state, data) {
+
       state.vaultKeeps = data;
     }
   },

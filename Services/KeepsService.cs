@@ -53,6 +53,11 @@ namespace Keepr.Services
       return updatedKeep;
     }
 
+    internal void decreaseKeepCount(int keepId)
+    {
+      _repo.decreaseKeepCount(keepId);
+    }
+
     public String Delete(string userId, int id)
     {
       GetByKeepId(id);

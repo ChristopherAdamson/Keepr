@@ -68,7 +68,7 @@
           />
           <input type="text" v-model="img" class="form-control" placeholder="Add an Image Url?" />
           <input type="checkbox" v-model="isPrivate" class="form-control w-25" placeholder />
-          <button @click="createKeep" class="btn btn-sm btn-primary">Submit</button>
+          <button @click.prevent="createKeep" class="btn btn-sm btn-primary">Submit</button>
           <button data-dismiss="modal" class="btn btn-sm btn-danger">Cancle</button>
         </div>
       </form>
@@ -77,14 +77,14 @@
       <div slot="title">Create a Vault</div>
       <form slot="body">
         <div class="form-group">
-          <input type="text" v-model="name" class="form-control" placeholder="Name of keep" />
+          <input type="text" v-model="name" class="form-control" placeholder="Name of vault" />
           <input
             type="text"
             v-model="description"
             class="form-control"
             placeholder="input a description."
           />
-          <button @click="createVault" class="btn btn-sm btn-primary">Submit</button>
+          <button @click.prevent="createVault" class="btn btn-sm btn-primary">Submit</button>
           <button data-dismiss="modal" class="btn btn-sm btn-danger">Cancle</button>
         </div>
       </form>
@@ -122,6 +122,7 @@ export default {
       this.keep = !this.keep;
     },
     createKeep() {
+      $("#one").modal("hide");
       let newKeep = {
         Name: this.name,
         Description: this.description,
@@ -136,6 +137,8 @@ export default {
         (this.isPrivate = false);
     },
     createVault() {
+      $("#two").modal("hide");
+
       let newVault = {
         Name: this.name,
         Description: this.description,

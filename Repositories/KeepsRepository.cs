@@ -66,6 +66,15 @@ namespace Keepr.Repositories
       return rowsAffected == 1;
     }
 
+    internal void decreaseKeepCount(int keepId)
+    {
+      string sql1 = @"UPDATE keeps
+      SET
+      Keeps = Keeps - 1
+      WHERE id = @keepId;";
+      _db.Execute(sql1, new { keepId });
+    }
+
     public bool Delete(string userId, int id)
     {
       string sql = "DELETE FROM keeps WHERE id = @Id AND userId = @UserId LIMIT 1;";

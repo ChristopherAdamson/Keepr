@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 namespace Keepr.Controllers
 {
 
-
+  [Authorize]
   [ApiController]
   [Route("api/[controller]")]
   public class VaultKeepsController : ControllerBase
@@ -37,6 +37,24 @@ namespace Keepr.Controllers
         }
         relationship.UserId = user.Value;
         return Ok(_service.Create(relationship));
+      }
+      catch (System.Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+    [HttpDelete("{id}")]
+    public ActionResult<string> Delete([FromBody] VaultKeep vaultKeep)
+    {
+      try
+      {
+        Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (user == null)
+        {
+          throw new Exception("You must be logged in to delete a keep from a vault.");
+        }
+        vaultKeep.UserId = user.Value;
+        return Ok(_service.delete(vaultKeep));
       }
       catch (System.Exception err)
       {

@@ -1,14 +1,15 @@
 import { api } from "./AxiosService"
 export default {
   actions: {
-    async deleteKeepFromVault({ commit, dispatch }, newVault) {
+    async deleteKeepFromVault({ commit, dispatch }, payload) {
       try {
-        // TODO
+        let res = await api.delete("vaultskeeps/" + payload.vaultKeepId, payload)
+        console.log(res.data);
+        dispatch("getKeepsByVaultId", payload.vaultId)
       } catch (error) { console.error(error); }
     },
     async getKeepsByVaultId({ commit, dispatch }, vaultId) {
       try {
-        // TODO Write this on the backend
         let res = await api.get("vaults/" + vaultId + "/keeps")
         console.log(res.data);
         commit("setVaultKeeps", res.data)

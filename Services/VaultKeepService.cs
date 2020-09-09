@@ -39,5 +39,16 @@ namespace Keepr.Services
       IEnumerable<VaultKeepViewModel> check = _repo.GetKeepByVaultId(id, userId);
       return check;
     }
+
+    internal object delete(VaultKeep vaultKeep)
+    {
+      VaultKeep check = _repo.Check(vaultKeep);
+      if (check != null)
+      {
+        _keepsService.decreaseKeepCount(vaultKeep.keepId);
+        return _repo.Delete(vaultKeep);
+      }
+      return vaultKeep;
+    }
   }
 }
