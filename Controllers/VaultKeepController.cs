@@ -43,8 +43,8 @@ namespace Keepr.Controllers
         return BadRequest(err.Message);
       }
     }
-    [HttpDelete("{id}")]
-    public ActionResult<string> Delete([FromBody] VaultKeep vaultKeep)
+    [HttpDelete("{id}/keeps/{keepId}")]
+    public ActionResult<string> Delete(int id, int keepId)
     {
       try
       {
@@ -53,8 +53,10 @@ namespace Keepr.Controllers
         {
           throw new Exception("You must be logged in to delete a keep from a vault.");
         }
-        vaultKeep.UserId = user.Value;
-        return Ok(_service.delete(vaultKeep));
+        //  VaultKeep vaultKeep;
+        //         vaultKeep.UserId = user.Value;
+        return Ok(_service.delete(id, keepId, user.Value));
+
       }
       catch (System.Exception err)
       {

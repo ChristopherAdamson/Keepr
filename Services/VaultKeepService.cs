@@ -40,15 +40,20 @@ namespace Keepr.Services
       return check;
     }
 
-    internal object delete(VaultKeep vaultKeep)
+    internal string delete(int id, int keepId, string userId)
     {
-      VaultKeep check = _repo.Check(vaultKeep);
-      if (check != null)
+      // VaultKeep check = _repo.Check(vaultKeep);
+      // if (check != null)
+      // {
+      _keepsService.decreaseKeepCount(keepId);
+
+      bool deleted = _repo.Delete(id, userId);
+      if (!deleted)
       {
-        _keepsService.decreaseKeepCount(vaultKeep.keepId);
-        return _repo.Delete(vaultKeep);
+        throw new Exception("something went wrong");
       }
-      return vaultKeep;
+      // }
+      return "deleted!";
     }
   }
 }

@@ -3,7 +3,8 @@ export default {
   actions: {
     async deleteKeepFromVault({ commit, dispatch }, payload) {
       try {
-        let res = await api.delete("vaultskeeps/" + payload.vaultKeepId, payload)
+        debugger
+        let res = await api.delete("vaultkeeps/" + payload.Id + "/keeps/" + payload.keepId)
         console.log(res.data);
         dispatch("getKeepsByVaultId", payload.vaultId)
       } catch (error) { console.error(error); }

@@ -56,9 +56,11 @@ namespace Keepr.Repositories
       return _db.Query<VaultKeepViewModel>(sql, new { vaultId, userId });
     }
 
-    internal object Delete(VaultKeep vaultKeep)
+    public bool Delete(int id, string userId)
     {
-      throw new NotImplementedException();
+      string sql = @"DELETE FROM vaultkeeps WHERE id = @id AND userId = @userId;";
+      int rowsAffected = _db.Execute(sql, new { id, userId });
+      return rowsAffected == 1;
     }
   }
 }

@@ -30,11 +30,11 @@ export default {
     },
     removeVaultKeep(vaultKeepId) {
       let payload = {
-        vaultKeepId: vaultKeepId,
+        Id: vaultKeepId,
         keepId: this.keepData.id,
         vaultId: this.vault,
       };
-      this.$store.state.dispatch("deleteKeepFromVault", payload);
+      this.$store.dispatch("deleteKeepFromVault", payload);
     },
   },
   components: {},
