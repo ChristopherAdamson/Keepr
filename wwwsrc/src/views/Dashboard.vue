@@ -144,8 +144,7 @@ export default {
       (this.name = ""), (this.description = "");
     },
     goToVault(vaultId) {
-      // this.$router.push({ name: "vault", params: { id: vaultId } });
-      this.$store.dispatch("getKeepsByVaultId", vaultId);
+      this.$router.push({ name: "vault", params: { id: vaultId } });
     },
   },
   components: { QuickModal },

@@ -31,7 +31,7 @@ namespace Keepr.Controllers
         Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
         if (user == null)
         {
-          throw new Exception("Must be logged in update a vault");
+          throw new Exception("Must be logged in");
         }
         return Ok(_ks.Get(user.Value));
       }
@@ -45,7 +45,12 @@ namespace Keepr.Controllers
     {
       try
       {
-        return Ok(_ks.GetByVaultId(id));
+        Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (user == null)
+        {
+          throw new Exception("Must be logged in");
+        }
+        return Ok(_ks.GetByVaultId(id, user.Value));
       }
       catch (Exception e)
       {
@@ -61,7 +66,7 @@ namespace Keepr.Controllers
         Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
         if (user == null)
         {
-          throw new Exception("Must be logged in update a vault");
+          throw new Exception("Must be logged in");
         }
         return Ok(_vks.getKeepByVaultId(id, user.Value));
       }

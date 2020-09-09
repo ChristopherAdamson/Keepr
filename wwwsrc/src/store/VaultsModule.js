@@ -16,6 +16,13 @@ export default {
         commit("setVaults", res.data)
       } catch (error) { console.error(error); }
     },
+    async getVaultById({ commit, dispatch }, vaultId) {
+      try {
+        let res = await api.get("vaults/" + vaultId)
+        console.log(res.data);
+        commit("setActiveVault", res.data)
+      } catch (error) { console.error(error); }
+    },
     async addKeepToVault({ commit, dispatch }, payload) {
       try {
 

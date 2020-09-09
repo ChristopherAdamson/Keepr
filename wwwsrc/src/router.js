@@ -6,6 +6,7 @@ import Home from "./views/Home.vue";
 import Dashboard from "./views/Dashboard.vue";
 import { authGuard } from "@bcwdev/auth0-vue";
 import ActiveKeep from "../src/views/ActiveKeep.vue"
+import ActiveVault from "./views/ActiveVault.vue"
 
 Vue.use(Router);
 
@@ -26,6 +27,12 @@ export default new Router({
       path: "/keeps/:id",
       name: "keep",
       component: ActiveKeep
+    },
+    {
+      path: "/vaults/:id/keeps",
+      name: "vault",
+      component: ActiveVault,
+      beforeEnter: authGuard
     }
   ]
 });

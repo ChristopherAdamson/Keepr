@@ -24,15 +24,15 @@ namespace Keepr.Services
       return _repo.Create(newVault);
     }
 
-    public Vault GetByVaultId(int id)
+    public Vault GetByVaultId(int id, string userId)
     {
-      Vault vault = _repo.GetByVaultId(id);
+      Vault vault = _repo.GetByVaultId(id, userId);
       return vault;
     }
 
     public Vault Update(int id, Vault updatedVault)
     {
-      Vault original = GetByVaultId(id);
+      Vault original = GetByVaultId(id, updatedVault.UserId);
       original.Name = updatedVault.Name == null ? original.Name : updatedVault.Name;
       original.Description = updatedVault.Description == null ? original.Description : updatedVault.Description;
 
@@ -47,7 +47,7 @@ namespace Keepr.Services
 
     public String Delete(string userId, int id)
     {
-      GetByVaultId(id);
+      GetByVaultId(id, userId);
       bool delorted = _repo.Delete(userId, id);
       if (!delorted)
       {

@@ -32,15 +32,10 @@ namespace Keepr.Repositories
       return VaultData;
     }
 
-    public Vault GetByVaultId(int id)
+    public Vault GetByVaultId(int id, string userId)
     {
-      string sql1 = @"UPDATE vaults
-      SET
-        Views = Views + 1
-        WHERE id = @id;";
-      _db.Execute(sql1, new { id });
-      string sql = @"SELECT * FROM vaults WHERE isPrivate = 0 AND id = @id;";
-      return _db.QueryFirstOrDefault<Vault>(sql, new { id });
+      string sql = @"SELECT * FROM vaults WHERE userId = @userId AND id = @id;";
+      return _db.QueryFirstOrDefault<Vault>(sql, new { id, userId });
     }
 
     internal bool Update(Vault updatedVault)

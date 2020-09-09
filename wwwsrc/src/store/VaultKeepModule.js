@@ -11,6 +11,7 @@ export default {
         // TODO Write this on the backend
         let res = await api.get("vaults/" + vaultId + "/keeps")
         console.log(res.data);
+        commit("setVaultKeeps", res.data)
       } catch (error) { console.error(error); }
     },
     async addKeepToVault({ commit, dispatch }, payload) {
