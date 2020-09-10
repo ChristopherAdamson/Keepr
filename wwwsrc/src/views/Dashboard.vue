@@ -75,17 +75,26 @@
       <div slot="title">Create a Keep</div>
       <form slot="body">
         <div class="form-group">
-          <input type="text" v-model="name" class="form-control" placeholder="Name of keep" />
+          <input type="text" v-model="name" class="form-control mb-1" placeholder="Name of keep" />
           <input
             type="text"
             v-model="description"
-            class="form-control"
+            class="form-control mb-1"
             placeholder="input a description."
           />
-          <input type="text" v-model="img" class="form-control" placeholder="Add an Image Url?" />
-          <input type="checkbox" v-model="isPrivate" class="form-control w-25" placeholder />
-          <button @click.prevent="createKeep" class="btn btn-sm btn-primary">Submit</button>
-          <button data-dismiss="modal" class="btn btn-sm btn-danger">Cancle</button>
+          <input
+            type="text"
+            v-model="img"
+            class="form-control mb-1"
+            placeholder="Add an Image Url?"
+          />
+          <div class="row align-items-center">
+            <h5 class="ml-5 mt-1">Make this keep private?</h5>
+
+            <input type="checkbox" v-model="isPrivate" class="form-control w-25 mt-1" placeholder />
+          </div>
+          <button @click.prevent="createKeep" class="btn btn-sm btn-primary ml-5 mt-2">Submit</button>
+          <button data-dismiss="modal" class="btn btn-sm btn-danger float-right mr-5 mt-2">Cancle</button>
         </div>
       </form>
     </QuickModal>
@@ -93,15 +102,15 @@
       <div slot="title">Create a Vault</div>
       <form slot="body">
         <div class="form-group">
-          <input type="text" v-model="name" class="form-control" placeholder="Name of vault" />
+          <input type="text" v-model="name" class="form-control mb-1" placeholder="Name of vault" />
           <input
             type="text"
             v-model="description"
-            class="form-control"
+            class="form-control mb-1"
             placeholder="input a description."
           />
-          <button @click.prevent="createVault" class="btn btn-sm btn-primary">Submit</button>
-          <button data-dismiss="modal" class="btn btn-sm btn-danger">Cancle</button>
+          <button @click.prevent="createVault" class="btn btn-sm btn-primary ml-5 mt-2">Submit</button>
+          <button data-dismiss="modal" class="btn btn-sm btn-danger float-right mr-5 mt-2">Cancle</button>
         </div>
       </form>
     </QuickModal>
