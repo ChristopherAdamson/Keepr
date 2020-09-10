@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="bg-secondary height">
     <navbar />
     <router-view />
   </div>
@@ -24,4 +24,7 @@ export default {
 @import "./assets/_variables.scss";
 @import "bootstrap";
 @import "./assets/_bootswatch.scss";
+.height {
+  min-height: 95%;
+}
 </style>

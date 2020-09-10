@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard container-fluid">
+  <div class="dashboard container-fluid height">
     <div class="row justify-content-center">
       <div class="col-12 text-center">
         <h1>WELCOME TO THE DASHBOARD</h1>
@@ -24,15 +24,15 @@
     </div>
     <div class="row mt-5 justify-content-center">
       <div class="col-8 box">
-        <div class="row">
-          <div class="col-6">
+        <div class="row bg-white rounded">
+          <div class="col-6 mt-2">
             <button
               :disabled="keep == true"
               @click="toggle"
               class="btn btn-block btn-secondary"
             >Your Keeps</button>
           </div>
-          <div class="col-6">
+          <div class="col-6 mt-2">
             <button
               :disabled="vault == true"
               @click="toggle"
@@ -41,12 +41,16 @@
           </div>
         </div>
         <div v-if="vault" class="col-12">
-          <div class="row">
-            <div v-for="vault in vaults" :key="vault.id" class="col-3 m-2 border">
+          <div class="row justify-content-around">
+            <div
+              v-for="vault in vaults"
+              :key="vault.id"
+              class="col-2 shadow-lg mx-1 my-3 rounded border"
+            >
               <button @click="deleteVault(vault.id)" class="btn float-right">
                 <i class="fa fa-trash-o text-danger"></i>
               </button>
-              <h5>{{vault.name}}</h5>
+              <h5 class="mt-2">{{vault.name}}</h5>
               <p>{{vault.description}}</p>
               <button
                 @click="goToVault(vault.id)"
@@ -182,9 +186,12 @@ export default {
 
 <style>
 .box {
-  height: 35rem;
+  height: 50rem;
   width: 15rem;
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: white;
   overflow: auto;
+}
+.height {
+  min-height: 93.5vh;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="activeKeep container-fluid">
     <div class="row justify-content-center">
-      <div class="col-8 text-center">
-        <h5>{{activeKeep.name}}</h5>
+      <div class="col-8 text-center border rounded bg-white rounded mt-4">
+        <h5 class="mt-1">{{activeKeep.name}}</h5>
         <p>{{activeKeep.description}}</p>
         <img class="img-size" :src="activeKeep.img" />
         <div class="row justify-content-center">
@@ -24,7 +24,7 @@
       <div slot="title">Which Vault would you like?</div>
       <div slot="body">
         <div v-for="vault in vaults" :key="vault.id">
-          <div class="border m-2 text-center">
+          <div class="border rounded m-2 text-center">
             <h5 class="m-0">{{vault.name}}</h5>
             <p class="m-0">{{vault.description}}</p>
             <button @click="addToVault(vault.id)" class="btn btn-secondary m-0">Add</button>

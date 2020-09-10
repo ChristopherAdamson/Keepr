@@ -1,6 +1,6 @@
 <template>
-  <div class="Keeps col-3 border border-dark mx-2 text-center">
-    <h5>{{keepData.name}}</h5>
+  <div class="Keeps col-3 border rounded border-dark mx-2 text-center bg-white rounded my-2">
+    <h5 class="mt-2">{{keepData.name}}</h5>
     <p>{{keepData.description}}</p>
     <div class="text-danger" v-if="keepData.isPrivate">PRIVATE</div>
     <img class="img-fluid height" :src="keepData.img" />

@@ -8,7 +8,7 @@ export default class NotificationService {
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
+        confirmButtonText: 'Yes, do it!',
         cancelButtonText: 'No, cancel!',
       })
       if (res.value) {
