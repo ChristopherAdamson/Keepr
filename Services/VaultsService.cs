@@ -27,7 +27,11 @@ namespace Keepr.Services
     public Vault GetByVaultId(int id, string userId)
     {
       Vault vault = _repo.GetByVaultId(id, userId);
-      return vault;
+      if (vault != null)
+      {
+        return vault;
+      }
+      throw new Exception("not your vault");
     }
 
     public Vault Update(int id, Vault updatedVault)

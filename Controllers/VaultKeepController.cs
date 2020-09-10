@@ -25,7 +25,7 @@ namespace Keepr.Controllers
     }
 
 
-    [HttpPost]
+    [HttpPost("create")]
     public ActionResult<Keep> Create([FromBody] VaultKeep relationship)
     {
       try
@@ -37,6 +37,25 @@ namespace Keepr.Controllers
         }
         relationship.UserId = user.Value;
         return Ok(_service.Create(relationship));
+      }
+      catch (System.Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+
+    [HttpPost]
+    public ActionResult<VaultKeep> CreateTest([FromBody] VaultKeep relationship)
+    {
+      try
+      {
+        Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (user == null)
+        {
+          throw new Exception("You must be logged in to add a keep to a vault.");
+        }
+        relationship.UserId = user.Value;
+        return Ok(_service.CreateTest(relationship));
       }
       catch (System.Exception err)
       {
@@ -56,7 +75,6 @@ namespace Keepr.Controllers
         //  VaultKeep vaultKeep;
         //         vaultKeep.UserId = user.Value;
         return Ok(_service.delete(id, keepId, user.Value));
-
       }
       catch (System.Exception err)
       {
@@ -64,6 +82,25 @@ namespace Keepr.Controllers
       }
     }
 
+    [HttpDelete("{id}")]
+    public ActionResult<string> DeleteTest(int id)
+    {
+      try
+      {
+        Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (user == null)
+        {
+          throw new Exception("You must be logged in to delete a keep from a vault.");
+        }
+        //  VaultKeep vaultKeep;
+        //         vaultKeep.UserId = user.Value;
+        return Ok(_service.deleteTest(id, user.Value));
+      }
+      catch (System.Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
 
     // [HttpGet]
     // public ActionResult<IEnumerable<VaultKeepViewModel>> Get()

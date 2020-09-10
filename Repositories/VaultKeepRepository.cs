@@ -63,5 +63,24 @@ namespace Keepr.Repositories
       int rowsAffected = _db.Execute(sql, new { id, userId });
       return rowsAffected == 1;
     }
+
+    internal VaultKeep CreateTest(VaultKeep relationship)
+    {
+      string sql = @"INSERT INTO vaultkeeps
+            (keepId, userId, vaultId)
+            VALUES
+            (@KeepId, @UserId, @VaultId);
+            SELECT LAST_INSERT_ID();";
+
+      relationship.Id = _db.ExecuteScalar<int>(sql, relationship);
+      return relationship;
+    }
+
+    public bool DeleteTest(int id, string userId)
+    {
+      string sql = @"DELETE FROM vaultkeeps WHERE id = @id AND userId = @userId;";
+      int rowsAffected = _db.Execute(sql, new { id, userId });
+      return rowsAffected == 1;
+    }
   }
 }

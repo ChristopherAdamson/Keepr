@@ -18,7 +18,8 @@ export default {
     },
     async addKeepToVault({ commit, dispatch }, payload) {
       try {
-        let res = await api.post("vaultkeeps", payload)
+
+        let res = await api.post("vaultkeeps/create", payload)
         console.log(res.data);
         commit("setActiveKeep", res.data)
       } catch (error) { console.error(error); }

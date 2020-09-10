@@ -23,9 +23,9 @@ namespace Keepr.Services
       return _repo.Create(newKeep);
     }
 
-    public Keep GetByKeepId(int id, string userId)
+    public Keep GetByKeepId(int id)
     {
-      Keep keep = _repo.GetByKeepId(id, userId);
+      Keep keep = _repo.GetByKeepId(id);
       if (keep != null)
       {
         return keep;
@@ -46,7 +46,7 @@ namespace Keepr.Services
 
     public Keep Update(int id, Keep updatedKeep)
     {
-      Keep original = GetByKeepId(id, updatedKeep.UserId);
+      Keep original = GetByKeepId(id);
       original.Name = updatedKeep.Name == null ? original.Name : updatedKeep.Name;
       original.Description = updatedKeep.Description == null ? original.Description : updatedKeep.Description;
       original.Img = updatedKeep.Img == null ? original.Img : updatedKeep.Img;

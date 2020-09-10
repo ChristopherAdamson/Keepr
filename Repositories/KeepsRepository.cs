@@ -43,7 +43,7 @@ namespace Keepr.Repositories
 
     }
 
-    public Keep GetByKeepId(int id, string userId)
+    public Keep GetByKeepId(int id)
     {
       string sql1 = @"UPDATE keeps
       SET
@@ -60,8 +60,7 @@ namespace Keepr.Repositories
             SET 
             name = @name,
             description = @description,
-            Img = @Img,
-            
+            Img = @Img
             WHERE id = @id AND userId = @userId LIMIT 1;";
       int rowsAffected = _db.Execute(sql, updatedKeep);
       return rowsAffected == 1;
@@ -94,7 +93,7 @@ namespace Keepr.Repositories
 
     public bool Delete(string userId, int id)
     {
-      string sql = "DELETE FROM keeps WHERE id = @Id AND userId = @UserId AND isPrivate = 1 LIMIT 1;";
+      string sql = "DELETE FROM keeps WHERE id = @Id AND userId = @UserId LIMIT 1;";
       int rowsAffected = _db.Execute(sql, new { userId, id });
       return rowsAffected == 1;
     }

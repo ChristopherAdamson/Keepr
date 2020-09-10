@@ -58,5 +58,28 @@ namespace Keepr.Services
       // }
       return "deleted!";
     }
+
+    internal VaultKeep CreateTest(VaultKeep relationship)
+    {
+
+      VaultKeep isCreated = _repo.CreateTest(relationship);
+      if (isCreated != null)
+      {
+        return isCreated;
+      }
+
+      throw new Exception("could not add to vault, have you already added it?");
+    }
+
+    internal string deleteTest(int id, string userId)
+    {
+      bool deleted = _repo.DeleteTest(id, userId);
+      if (!deleted)
+      {
+        throw new Exception("something went wrong with deleting");
+      }
+      // }
+      return "deleted";
+    }
   }
 }
