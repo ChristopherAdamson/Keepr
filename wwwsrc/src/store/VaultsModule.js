@@ -28,6 +28,15 @@ export default {
 
       } catch (error) { console.error(error); }
     },
+
+    async deleteVault({ commit, dispatch }, vaultId) {
+      try {
+        let res = await api.delete("/vaults/" + vaultId)
+        console.log(res.data);
+        dispatch("getVaults")
+      } catch (error) { console.error(error); }
+    },
+
     // TODO EDIT AND DELETE KEEPS
   }
 }

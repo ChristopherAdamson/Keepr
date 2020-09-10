@@ -32,17 +32,18 @@ namespace Keepr.Repositories
       return KeepData;
     }
 
-    internal void increaseKeepCount(int keepId)
+    internal Keep increaseKeepCount(int keepId)
     {
       string sql1 = @"UPDATE keeps
       SET
       Keeps = Keeps + 1
-      WHERE id = @keepId;";
-      _db.Execute(sql1, new { keepId });
+      WHERE id = @keepId;
+      SELECT * FROM keeps WHERE id = @keepId";
+      return _db.QueryFirstOrDefault<Keep>(sql1, new { keepId });
 
     }
 
-    public Keep GetByKeepId(int id)
+    public Keep GetByKeepId(int id, string userId)
     {
       string sql1 = @"UPDATE keeps
       SET
@@ -81,11 +82,32 @@ namespace Keepr.Repositories
       _db.Execute(sql1, new { keepId });
     }
 
+    internal bool UpdatePrivacy(int id, string userId)
+    {
+      string sql = @"UPDATE keeps
+            SET 
+            isPrivate = 0
+            WHERE id = @id AND userId = @userId LIMIT 1;";
+      int rowsAffected = _db.Execute(sql, new { id, userId });
+      return rowsAffected == 1;
+    }
+
     public bool Delete(string userId, int id)
     {
-      string sql = "DELETE FROM keeps WHERE id = @Id AND userId = @UserId LIMIT 1;";
+      string sql = "DELETE FROM keeps WHERE id = @Id AND userId = @UserId AND isPrivate = 1 LIMIT 1;";
       int rowsAffected = _db.Execute(sql, new { userId, id });
       return rowsAffected == 1;
+    }
+
+    internal Keep UpdateShares(int id)
+    {
+      string sql = @"UPDATE keeps
+            SET 
+            shares = shares +1
+            WHERE id = @id;
+            SELECT * FROM keeps WHERE id = @id;";
+
+      return _db.QueryFirstOrDefault<Keep>(sql, new { id });
     }
   }
 }

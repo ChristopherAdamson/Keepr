@@ -43,6 +43,9 @@
         <div v-if="vault" class="col-12">
           <div class="row">
             <div v-for="vault in vaults" :key="vault.id" class="col-3 m-2 border">
+              <button @click="deleteVault(vault.id)" class="btn float-right">
+                <i class="fa fa-trash-o text-danger"></i>
+              </button>
               <h5>{{vault.name}}</h5>
               <p>{{vault.description}}</p>
               <button
@@ -103,6 +106,7 @@
 
 
 <script>
+import swal from "../components/SwalComponenet.js";
 import keepscomponent from "../components/Keeps";
 import QuickModal from "../components/QuickModal";
 export default {
@@ -162,8 +166,17 @@ export default {
     goToVault(vaultId) {
       this.$router.push({ name: "vault", params: { id: vaultId } });
     },
+    async deleteVault(id) {
+      if (
+        await swal.confirmAction(
+          "Are you sure? \nOnce deleted it will be gone forever"
+        )
+      ) {
+        this.$store.dispatch("deleteVault", id);
+      }
+    },
   },
-  components: { QuickModal, keepscomponent },
+  components: { QuickModal, keepscomponent, swal },
 };
 </script>
 

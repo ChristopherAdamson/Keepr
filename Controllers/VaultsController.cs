@@ -126,7 +126,7 @@ namespace Keepr.Controllers
         Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
         if (user == null)
         {
-          throw new Exception("Must be logged in update a vault");
+          throw new Exception("Must be logged in delete a vault");
         }
 
         return Ok(_ks.Delete(user.Value, id));

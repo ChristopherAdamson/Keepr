@@ -28,6 +28,7 @@
 
 
 <script>
+import swal from "../components/SwalComponenet.js";
 export default {
   name: "Keeps",
   data() {
@@ -47,14 +48,28 @@ export default {
       };
       this.$store.dispatch("deleteKeepFromVault", payload);
     },
-    makePublic() {
-      // TODO
+    async makePublic() {
+      if (
+        await swal.confirmAction(
+          "Are you sure? \nOnce Public this cannot be deleted"
+        )
+      ) {
+        this.$store.dispatch("setAsPublic", this.keepData.id);
+      }
     },
-    deletePrivateKeep() {
-      // TODO
+    async deletePrivateKeep() {
+      if (
+        await swal.confirmAction(
+          "Are you sure? \nOnce deleted it will be gone forever"
+        )
+      ) {
+        this.$store.dispatch("deletePrivateKeep", this.keepData.id);
+      }
     },
   },
-  components: {},
+  components: {
+    swal,
+  },
 };
 </script>
 

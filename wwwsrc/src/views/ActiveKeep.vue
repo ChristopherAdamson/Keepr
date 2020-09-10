@@ -10,9 +10,13 @@
           <div class="col-2">Shares: {{activeKeep.shares}}</div>
           <div class="col-2">Keeps: {{activeKeep.keeps}}</div>
         </div>
-        <div v-if="$auth.isAuthenticated" class="row">
-          <button class="btn btn-primary">Share</button>
-          <button data-toggle="modal" data-target="#one" class="btn btn-success">Add To Vault</button>
+        <div v-if="$auth.isAuthenticated" class="row justify-content-center m-2">
+          <button @click="share" class="btn btn-primary btn-sm m-2">Share</button>
+          <button
+            data-toggle="modal"
+            data-target="#one"
+            class="btn btn-sm btn-success m-2"
+          >Add To Vault</button>
         </div>
       </div>
     </div>
@@ -59,9 +63,13 @@ export default {
       };
 
       this.$store.dispatch("addKeepToVault", payload);
+      $("#one").modal("hide");
     },
     deleteKeep() {
       // TODO check if it is there keep before showing them the button
+    },
+    share() {
+      this.$store.dispatch("shareKeep", this.activeKeep.id);
     },
   },
   components: {

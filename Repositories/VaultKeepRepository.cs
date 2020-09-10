@@ -20,15 +20,16 @@ namespace Keepr.Repositories
       string sql = @"SELECT * FROM vaultkeeps WHERE vaultId = @vaultId AND keepId = @keepId;";
       return _db.QueryFirstOrDefault(sql, vaultkeep);
     }
-    internal VaultKeep Create(VaultKeep VaultKeep)
+    internal bool Create(VaultKeep VaultKeep)
     {
       string sql = @"INSERT INTO vaultkeeps
             (keepId, userId, vaultId)
             VALUES
             (@KeepId, @UserId, @VaultId);
             SELECT LAST_INSERT_ID();";
-      VaultKeep.Id = _db.ExecuteScalar<int>(sql, VaultKeep);
-      return VaultKeep;
+
+      int rowsAffected = _db.Execute(sql, VaultKeep);
+      return rowsAffected == 1;
     }
 
     internal IEnumerable<VaultKeepViewModel> Get(VaultKeep vaultkeep)

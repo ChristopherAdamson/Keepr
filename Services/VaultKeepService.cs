@@ -18,15 +18,18 @@ namespace Keepr.Services
       _keepsService = keepsService;
     }
 
-    public VaultKeep Create(VaultKeep vaultKeep)
+    public Keep Create(VaultKeep vaultKeep)
     {
       VaultKeep check = _repo.Check(vaultKeep);
       if (check == null)
       {
-        _keepsService.increaseKeepCount(vaultKeep.keepId);
-        return _repo.Create(vaultKeep);
+        bool isCreated = _repo.Create(vaultKeep);
+        if (isCreated)
+        {
+          return _keepsService.increaseKeepCount(vaultKeep.keepId);
+        }
       }
-      return vaultKeep;
+      throw new Exception("could not add to vault, have you already added it?");
     }
 
     internal IEnumerable<VaultKeepViewModel> Get(VaultKeep vaultKeep)

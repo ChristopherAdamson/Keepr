@@ -13,7 +13,7 @@ export default {
         let res = await api.get("/keeps/" + keepId)
         console.log(res.data);
         commit("setActiveKeep", res.data)
-      } catch (error) { }
+      } catch (error) { console.error(error) }
     },
 
     async createKeep({ commit, dispatch }, newKeep) {
@@ -21,8 +21,7 @@ export default {
 
         let res = await api.post("keeps", newKeep)
         console.log(res.data);
-        // TODO should probably create a method to get the ones ive made. 
-        // dispatch("getMyKeeps")
+        dispatch("getMyKeeps")
       } catch (error) { console.error(error); }
     },
     async getMyKeeps({ commit, dispatch }) {
@@ -32,6 +31,32 @@ export default {
         commit("setUserKeeps", res.data)
       } catch (error) { console.error(error); }
     },
+    async setAsPublic({ commit, dispatch }, keepId) {
+      try {
+        let res = await api.put("/keeps/" + keepId + "/private")
+        console.log(res.data);
+        dispatch("getMyKeeps")
+      } catch (error) { console.error(error) }
+    },
+    async deletePrivateKeep({ commit, dispatch }, keepId) {
+      try {
+        let res = await api.delete("/keeps/" + keepId)
+        console.log(res.data);
+        dispatch("getMyKeeps")
+      } catch (error) { console.error(error); }
+    },
+
+    async shareKeep({ commit, dispatch }, keepId) {
+      try {
+        let res = await api.put("keeps/" + keepId + "/shares")
+        console.log(res.data);
+        commit("setActiveKeep", res.data)
+      } catch (error) {
+        console.error(error);
+
+      }
+    }
+
 
     // TODO EDIT AND DELETE KEEPS
 

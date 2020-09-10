@@ -20,6 +20,7 @@ export default {
       try {
         let res = await api.post("vaultkeeps", payload)
         console.log(res.data);
+        commit("setActiveKeep", res.data)
       } catch (error) { console.error(error); }
     }
   }

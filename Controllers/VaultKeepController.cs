@@ -26,7 +26,7 @@ namespace Keepr.Controllers
 
 
     [HttpPost]
-    public ActionResult<string> Create([FromBody] VaultKeep relationship)
+    public ActionResult<Keep> Create([FromBody] VaultKeep relationship)
     {
       try
       {

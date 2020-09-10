@@ -23,20 +23,30 @@ namespace Keepr.Services
       return _repo.Create(newKeep);
     }
 
-    public Keep GetByKeepId(int id)
+    public Keep GetByKeepId(int id, string userId)
     {
-      Keep keep = _repo.GetByKeepId(id);
-      return keep;
+      Keep keep = _repo.GetByKeepId(id, userId);
+      if (keep != null)
+      {
+        return keep;
+      }
+      throw new Exception("something went wrong");
     }
 
-    internal void increaseKeepCount(int keepId)
+    internal Keep increaseKeepCount(int keepId)
     {
-      _repo.increaseKeepCount(keepId);
+      Keep update = _repo.increaseKeepCount(keepId);
+      if (update != null)
+      {
+        return update;
+      }
+      throw new Exception("something went wrong");
+
     }
 
     public Keep Update(int id, Keep updatedKeep)
     {
-      Keep original = GetByKeepId(id);
+      Keep original = GetByKeepId(id, updatedKeep.UserId);
       original.Name = updatedKeep.Name == null ? original.Name : updatedKeep.Name;
       original.Description = updatedKeep.Description == null ? original.Description : updatedKeep.Description;
       original.Img = updatedKeep.Img == null ? original.Img : updatedKeep.Img;
@@ -55,7 +65,12 @@ namespace Keepr.Services
 
     public IEnumerable<Keep> GetByUser(string userId)
     {
-      return _repo.GetByUser(userId);
+      IEnumerable<Keep> keeps = _repo.GetByUser(userId);
+      if (keeps != null)
+      {
+        return keeps;
+      }
+      throw new Exception("Are you logged in?");
     }
 
     internal void decreaseKeepCount(int keepId)
@@ -65,13 +80,33 @@ namespace Keepr.Services
 
     public String Delete(string userId, int id)
     {
-      GetByKeepId(id);
+
       bool delorted = _repo.Delete(userId, id);
       if (!delorted)
       {
         throw new Exception("Not your keep to delete");
       }
       return "Deleted!";
+    }
+
+    internal string UpdatePrivacy(int id, string userId)
+    {
+      bool updated = _repo.UpdatePrivacy(id, userId);
+      if (updated)
+      {
+        return "Privacy set";
+      }
+      return "something went wrong";
+    }
+
+    internal Keep UpdateShares(int id)
+    {
+      Keep updated = _repo.UpdateShares(id);
+      if (updated != null)
+      {
+        return updated;
+      }
+      throw new Exception("something went wrong");
     }
   }
 }

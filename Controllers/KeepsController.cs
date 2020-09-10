@@ -56,7 +56,8 @@ namespace Keepr.Controllers
     {
       try
       {
-        return Ok(_ks.GetByKeepId(id));
+        Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        return Ok(_ks.GetByKeepId(id, user.Value));
       }
       catch (Exception e)
       {
@@ -78,6 +79,47 @@ namespace Keepr.Controllers
         updatedKeep.UserId = user.Value;
         updatedKeep.Id = id;
         return Ok(_ks.Update(id, updatedKeep));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      };
+    }
+
+    [Authorize]
+    [HttpPut("{id}/shares")]
+    public ActionResult<Keep> UpdateShares(int id)
+    {
+      try
+      {
+        Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (user == null)
+        {
+          throw new Exception("Must be logged in to Share a keep");
+        }
+
+        return Ok(_ks.UpdateShares(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      };
+    }
+
+    [Authorize]
+    [HttpPut("{id}/private")]
+    public ActionResult<string> UpdatePrivacy(int id)
+    {
+      try
+      {
+        Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (user == null)
+        {
+          throw new Exception("Must be logged in update a keep");
+        }
+
+
+        return Ok(_ks.UpdatePrivacy(id, user.Value));
       }
       catch (Exception e)
       {
@@ -114,7 +156,7 @@ namespace Keepr.Controllers
         Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
         if (user == null)
         {
-          throw new Exception("Must be logged in update a keep");
+          throw new Exception("Must be logged in to delete a keep");
         }
 
         return Ok(_ks.Delete(user.Value, id));
