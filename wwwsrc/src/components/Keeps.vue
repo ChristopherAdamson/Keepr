@@ -60,7 +60,7 @@ export default {
     async deletePrivateKeep() {
       if (
         await swal.confirmAction(
-          "Are you sure? \nOnce deleted it will be gone forever"
+          "Are you sure? \n Once deleted it will be gone forever"
         )
       ) {
         this.$store.dispatch("deletePrivateKeep", this.keepData.id);
