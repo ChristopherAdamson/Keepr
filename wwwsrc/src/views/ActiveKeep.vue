@@ -75,7 +75,7 @@ export default {
       $("#one").modal("hide");
     },
     deleteKeep() {
-      // TODO check if it is there keep before showing them the button
+      // TODO check if   it is there keep before showing them the button
     },
     share() {
       this.$store.dispatch("shareKeep", this.activeKeep.id);
