@@ -2,21 +2,28 @@
   <div class="activeKeep container-fluid height">
     <div class="row justify-content-center">
       <div class="col-8 text-center border rounded bg-white rounded mt-4">
-        <h5 class="mt-1">{{activeKeep.name}}</h5>
-        <p>{{activeKeep.description}}</p>
+        <h5 class="mt-1">{{ activeKeep.name }}</h5>
+        <p>{{ activeKeep.description }}</p>
         <img class="img-size" :src="activeKeep.img" />
         <div class="row justify-content-center">
-          <div class="col-2">Views: {{activeKeep.views}}</div>
-          <div class="col-2">Shares: {{activeKeep.shares}}</div>
-          <div class="col-2">Keeps: {{activeKeep.keeps}}</div>
+          <div class="col-2">Views: {{ activeKeep.views }}</div>
+          <div class="col-2">Shares: {{ activeKeep.shares }}</div>
+          <div class="col-2">Keeps: {{ activeKeep.keeps }}</div>
         </div>
-        <div v-if="$auth.isAuthenticated" class="row justify-content-center m-2">
-          <button @click="share" class="btn btn-primary btn-sm m-2">Share</button>
+        <div
+          v-if="$auth.isAuthenticated"
+          class="row justify-content-center m-2"
+        >
+          <button @click="share" class="btn btn-primary btn-sm m-2">
+            Share
+          </button>
           <button
             data-toggle="modal"
             data-target="#one"
             class="btn btn-sm btn-success m-2"
-          >Add To Vault</button>
+          >
+            Add To Vault
+          </button>
         </div>
       </div>
     </div>
@@ -25,9 +32,11 @@
       <div slot="body">
         <div v-for="vault in vaults" :key="vault.id">
           <div class="border rounded m-2 text-center">
-            <h5 class="m-0">{{vault.name}}</h5>
-            <p class="m-0">{{vault.description}}</p>
-            <button @click="addToVault(vault.id)" class="btn btn-secondary m-0">Add</button>
+            <h5 class="m-0">{{ vault.name }}</h5>
+            <p class="m-0">{{ vault.description }}</p>
+            <button @click="addToVault(vault.id)" class="btn btn-secondary m-0">
+              Add
+            </button>
           </div>
         </div>
       </div>
@@ -83,10 +92,8 @@ export default {
 .img-size {
   height: 10rem;
   width: auto;
-
 }
 .height {
   min-height: 93.5vh;
-  
 }
 </style>
