@@ -1,5 +1,5 @@
 <template>
-  <div class="activeKeep container-fluid">
+  <div class="activeKeep container-fluid height">
     <div class="row justify-content-center">
       <div class="col-8 text-center border rounded bg-white rounded mt-4">
         <h5 class="mt-1">{{activeKeep.name}}</h5>
@@ -83,5 +83,10 @@ export default {
 .img-size {
   height: 10rem;
   width: auto;
+
+}
+.height {
+  min-height: 93.5vh;
+  
 }
 </style>

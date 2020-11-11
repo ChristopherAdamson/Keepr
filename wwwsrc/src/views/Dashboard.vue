@@ -89,7 +89,7 @@
             placeholder="Add an Image Url?"
           />
           <div class="row align-items-center">
-            <h5 class="ml-5 mt-1">Make this keep private?</h5>
+            <h5 class="ml-5 mt-1">Make this keep public?</h5>
 
             <input type="checkbox" v-model="isPrivate" class="form-control w-25 mt-1" placeholder />
           </div>
